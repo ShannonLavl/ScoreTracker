@@ -1,42 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_alignParentTop="true">
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content" >
 
-        <TextView
+        <EditText
             android:id="@+id/P1_name"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Player 1" />
+            style="@style/ScoreSheetEntryStyle"
+            android:hint="Player 1" />
 
-        <TextView
+        <EditText
             android:id="@+id/P2_name"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Player 2" />
+            style="@style/ScoreSheetEntryStyle"
+            android:hint="Player 2" />
 
-        <TextView
+        <EditText
             android:id="@+id/P3_name"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Player 3" />
+            style="@style/ScoreSheetEntryStyle"
+            android:hint="Player 3" />
 
-        <TextView
+        <EditText
             android:id="@+id/P4_name"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Player 4" />
+            style="@style/ScoreSheetEntryStyle"
+            android:hint="Player 4" />
 
     </LinearLayout>
 
@@ -49,36 +42,29 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
 
         <TextView
             android:id="@+id/P1_total"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            style="@style/ScoreSheetEntryStyle"
             android:text="0" />
 
         <TextView
             android:id="@+id/P2_total"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            style="@style/ScoreSheetEntryStyle"
             android:text="0" />
 
         <TextView
             android:id="@+id/P3_total"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            style="@style/ScoreSheetEntryStyle"
             android:text="0" />
 
         <TextView
             android:id="@+id/P4_total"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            style="@style/ScoreSheetEntryStyle"
             android:text="0" />
 
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>
