@@ -3,13 +3,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_alignParentTop="true">
+    android:layout_height="match_parent" >
 
     <LinearLayout
+        android:id="@+id/names_layout"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" >
 
         <EditText
             android:id="@+id/P1_name"
@@ -36,10 +37,13 @@
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:layout_below="@+id/names_layout"
+        android:layout_above="@+id/totals_layout">
     </ListView>
 
     <LinearLayout
+        android:id="@+id/totals_layout"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

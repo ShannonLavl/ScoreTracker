@@ -8,4 +8,6 @@
     <string name="add_game">Add New Game</string>
     <string name="list_instruction">Choose a game to begin scoring</string>
 
+    <string name="score_entry_title">Enter round score for </string>
+
 </resources>

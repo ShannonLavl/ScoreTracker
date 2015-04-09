@@ -3,26 +3,23 @@
     android:id="@+id/list_item_scores"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clickable="false">
 
     <TextView
         android:id="@+id/P1_score"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
+        style="@style/ScoreSheetEntryStyle" />
 
     <TextView
         android:id="@+id/P2_score"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
+        style="@style/ScoreSheetEntryStyle" />
 
     <TextView
         android:id="@+id/P3_score"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
+        style="@style/ScoreSheetEntryStyle" />
 
     <TextView
         android:id="@+id/P4_score"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
+        style="@style/ScoreSheetEntryStyle" />
 
 </LinearLayout>

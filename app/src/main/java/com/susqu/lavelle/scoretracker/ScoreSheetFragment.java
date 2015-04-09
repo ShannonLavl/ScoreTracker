@@ -2,16 +2,19 @@ package com.susqu.lavelle.scoretracker;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.ListFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -19,15 +22,27 @@ import java.util.ArrayList;
 /**
  * Created by Shannon on 3/23/2015.
  */
-public class ScoreSheetFragment extends Fragment {
+public class ScoreSheetFragment extends ListFragment {
+    public static final String TAG = "ScoreSheetFragment";
     public static final String EXTRA_GAME_ID = "scoretracker.game_id";
 
-    public Player player1;
-    public Player player2;
-    public Player player3;
-    public Player player4;
+    public int mNumPlayers = 4;
+    public Player mPlayer1;
+    public Player mPlayer2;
+    public Player mPlayer3;
+    public Player mPlayer4;
 
-    public ArrayList<ArrayList<TextView>> Scores;
+    public EditText mPlayer1EditText;
+    public EditText mPlayer2EditText;
+    public EditText mPlayer3EditText;
+    public EditText mPlayer4EditText;
+
+    public TextView mPlayer1Total;
+    public TextView mPlayer2Total;
+    public TextView mPlayer3Total;
+    public TextView mPlayer4Total;
+
+    public ArrayList<ArrayList<Integer>> mScores;
 
 
 /*    public static ScoreSheetFragment newInstance(UUID gameId) {
@@ -44,15 +59,26 @@ public class ScoreSheetFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        player1 = new Player("Shannon");
-        player2 = new Player("Jon");
-        player3 = new Player("Phil");
-        player4 = new Player("Herman");
+        mPlayer1 = new Player();
+        mPlayer2 = new Player();
+        mPlayer3 = new Player();
+        mPlayer4 = new Player();
 
-        Scores = new ArrayList<ArrayList<TextView>>();
+
+        mScores = new ArrayList<ArrayList<Integer>>();
+
+        ScoresAdapter adapter = new ScoresAdapter(mScores);
+        setListAdapter(adapter);
+
+
         // Get the information for this game
 
         setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -60,11 +86,32 @@ public class ScoreSheetFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_score_sheet, container, false);
 
         // Set up the EditTexts so the user can enter the players' names
-        EditText player1EditText = (EditText) v.findViewById(R.id.P1_name);
-        if (player1.getName() != null) {
-            player1EditText.setText(player1.getName());
+        mPlayer1EditText = (EditText) v.findViewById(R.id.P1_name);
+        if (mPlayer1.getName() != null) {
+            mPlayer1EditText.setText(mPlayer1.getName());
         }
-        player1EditText.addTextChangedListener(new TextWatcher() {
+        mPlayer1EditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // do nothing
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mPlayer1.setName(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // do nothing
+            }
+        });
+
+        mPlayer2EditText = (EditText) v.findViewById(R.id.P2_name);
+        if (mPlayer2.getName() != null) {
+            mPlayer2EditText.setText(mPlayer2.getName());
+        }
+        mPlayer2EditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -72,7 +119,7 @@ public class ScoreSheetFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                player1.setName(s.toString());
+                mPlayer2.setName(s.toString());
             }
 
             @Override
@@ -81,11 +128,11 @@ public class ScoreSheetFragment extends Fragment {
             }
         });
 
-        EditText player2EditText = (EditText) v.findViewById(R.id.P2_name);
-        if (player2.getName() != null) {
-            player2EditText.setText(player2.getName());
+        mPlayer3EditText = (EditText) v.findViewById(R.id.P3_name);
+        if (mPlayer3.getName() != null) {
+            mPlayer3EditText.setText(mPlayer3.getName());
         }
-        player2EditText.addTextChangedListener(new TextWatcher() {
+        mPlayer3EditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -93,7 +140,7 @@ public class ScoreSheetFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                player2.setName(s.toString());
+                mPlayer3.setName(s.toString());
             }
 
             @Override
@@ -102,11 +149,11 @@ public class ScoreSheetFragment extends Fragment {
             }
         });
 
-        EditText player3EditText = (EditText) v.findViewById(R.id.P3_name);
-        if (player3.getName() != null) {
-            player3EditText.setText(player3.getName());
+        mPlayer4EditText = (EditText) v.findViewById(R.id.P4_name);
+        if (mPlayer4.getName() != null) {
+            mPlayer4EditText.setText(mPlayer4.getName());
         }
-        player3EditText.addTextChangedListener(new TextWatcher() {
+        mPlayer4EditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -114,7 +161,7 @@ public class ScoreSheetFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                player3.setName(s.toString());
+                mPlayer4.setName(s.toString());
             }
 
             @Override
@@ -123,26 +170,21 @@ public class ScoreSheetFragment extends Fragment {
             }
         });
 
-        EditText player4EditText = (EditText) v.findViewById(R.id.P4_name);
-        if (player4.getName() != null) {
-            player4EditText.setText(player4.getName());
-        }
-        player4EditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        ListView listView = (ListView)v.findViewById(android.R.id.list);
 
-            }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                player4.setName(s.toString());
-            }
 
-            @Override
-            public void afterTextChanged(Editable s) {
 
-            }
-        });
+
+
+        mPlayer1Total = (TextView) v.findViewById(R.id.P1_total);
+        mPlayer1Total.setText(Integer.toString(mPlayer1.getTotalScore()));
+        mPlayer2Total = (TextView) v.findViewById(R.id.P2_total);
+        mPlayer2Total.setText(Integer.toString(mPlayer2.getTotalScore()));
+        mPlayer3Total = (TextView) v.findViewById(R.id.P3_total);
+        mPlayer3Total.setText(Integer.toString(mPlayer3.getTotalScore()));
+        mPlayer4Total = (TextView) v.findViewById(R.id.P4_total);
+        mPlayer4Total.setText(Integer.toString(mPlayer4.getTotalScore()));
 
         return v;
     }
@@ -157,18 +199,71 @@ public class ScoreSheetFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_new_round:
+                ScoresAdapter adapter = (ScoresAdapter) getListAdapter();
                 // add a new row of scores to the score sheet
-
-
-
- /*               Crime crime = new Crime();
-                CrimeLab.get(getActivity()).addCrime(crime);
-                Intent i = new Intent(getActivity(), CrimePagerActivity.class);
-                i.putExtra(CrimeFragment.EXTRA_CRIME_ID, crime.getId());
-                startActivityForResult(i, 0); */
+                ArrayList<Integer> round = new ArrayList<Integer>();
+                for (int i = 0; i < mNumPlayers; i++) {
+                    round.add(0);
+                }
+                mPlayer1.addRoundScore(0);
+                mPlayer2.addRoundScore(0);
+                mPlayer3.addRoundScore(0);
+                mPlayer4.addRoundScore(0);
+                mScores.add(round);
+                adapter.notifyDataSetChanged();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private class ScoresAdapter extends ArrayAdapter<ArrayList<Integer>> {
+        public ScoresAdapter(ArrayList<ArrayList<Integer>> scores) {
+            super(getActivity(), 0, scores);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            // if we weren't given a View, inflate one
+            if (convertView == null) {
+                convertView = getActivity().getLayoutInflater().inflate(R.layout.list_item_scores, null);
+            }
+
+            // Configure the View for this round - a score for each player
+            TextView player1ScoreTV = (TextView) convertView.findViewById(R.id.P1_score);
+            player1ScoreTV.setText(Integer.toString(mPlayer1.getRoundScore(position)));
+            player1ScoreTV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d(TAG, "clicked player 1's score");
+                }
+            });
+            TextView player2ScoreTV = (TextView) convertView.findViewById(R.id.P2_score);
+            player2ScoreTV.setText(Integer.toString(mPlayer2.getRoundScore(position)));
+            player2ScoreTV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d(TAG, "clicked player 2's score");
+                }
+            });
+            TextView player3ScoreTV = (TextView) convertView.findViewById(R.id.P3_score);
+            player3ScoreTV.setText(Integer.toString(mPlayer3.getRoundScore(position)));
+            player3ScoreTV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d(TAG, "clicked player 3's score");
+                }
+            });
+            TextView player4ScoreTV = (TextView) convertView.findViewById(R.id.P4_score);
+            player4ScoreTV.setText(Integer.toString(mPlayer4.getRoundScore(position)));
+            player4ScoreTV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d(TAG, "clicked player 4's score");
+                }
+            });
+
+            return convertView;
         }
     }
 

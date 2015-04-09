@@ -74,6 +74,9 @@ public class GameListFragment extends ListFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+
+        // the user has just added a new game to the list
         ((GameAdapter)getListAdapter()).notifyDataSetChanged();
     }
 
@@ -113,7 +116,7 @@ public class GameListFragment extends ListFragment {
                 convertView = getActivity().getLayoutInflater().inflate(R.layout.list_item_game, null);
             }
 
-            // Configure the view for this Crime
+            // Configure the view for this Game
             Game g = getItem(position);
 
             TextView titleTextView = (TextView) convertView.findViewById(R.id.game_list_item_titleTextView);
