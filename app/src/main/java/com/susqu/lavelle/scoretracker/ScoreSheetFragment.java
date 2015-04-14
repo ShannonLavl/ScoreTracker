@@ -1,7 +1,10 @@
 package com.susqu.lavelle.scoretracker;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ListFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -25,6 +28,13 @@ import java.util.ArrayList;
 public class ScoreSheetFragment extends ListFragment {
     public static final String TAG = "ScoreSheetFragment";
     public static final String EXTRA_GAME_ID = "scoretracker.game_id";
+
+    private static final int REQUEST_PLAYER1_SCORE = 0;
+    private static final int REQUEST_PLAYER2_SCORE = 1;
+    private static final int REQUEST_PLAYER3_SCORE = 2;
+    private static final int REQUEST_PLAYER4_SCORE = 3;
+
+    public static final String DIALOG_SCORE = "score";
 
     public int mNumPlayers = 4;
     public Player mPlayer1;
@@ -55,14 +65,21 @@ public class ScoreSheetFragment extends ListFragment {
         return fragment;
     }  */
 
+    private void updateTotalScores() {
+        mPlayer1Total.setText(Integer.toString(mPlayer1.getTotalScore()));
+        mPlayer2Total.setText(Integer.toString(mPlayer2.getTotalScore()));
+        mPlayer3Total.setText(Integer.toString(mPlayer3.getTotalScore()));
+        mPlayer4Total.setText(Integer.toString(mPlayer4.getTotalScore()));
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mPlayer1 = new Player();
-        mPlayer2 = new Player();
-        mPlayer3 = new Player();
-        mPlayer4 = new Player();
+        mPlayer1 = new Player("Shannon");
+        mPlayer2 = new Player("Herman");
+        mPlayer3 = new Player("Jon");
+        mPlayer4 = new Player("Phil");
 
 
         mScores = new ArrayList<ArrayList<Integer>>();
@@ -86,7 +103,9 @@ public class ScoreSheetFragment extends ListFragment {
         View v = inflater.inflate(R.layout.fragment_score_sheet, container, false);
 
         // Set up the EditTexts so the user can enter the players' names
+        // Also lock the sizes of the EditTexts so the columns stay aligned
         mPlayer1EditText = (EditText) v.findViewById(R.id.P1_name);
+        mPlayer1EditText.setWidth(mPlayer1EditText.getWidth());
         if (mPlayer1.getName() != null) {
             mPlayer1EditText.setText(mPlayer1.getName());
         }
@@ -108,6 +127,7 @@ public class ScoreSheetFragment extends ListFragment {
         });
 
         mPlayer2EditText = (EditText) v.findViewById(R.id.P2_name);
+        mPlayer2EditText.setWidth(mPlayer2EditText.getWidth());
         if (mPlayer2.getName() != null) {
             mPlayer2EditText.setText(mPlayer2.getName());
         }
@@ -129,6 +149,7 @@ public class ScoreSheetFragment extends ListFragment {
         });
 
         mPlayer3EditText = (EditText) v.findViewById(R.id.P3_name);
+        mPlayer3EditText.setWidth(mPlayer3EditText.getWidth());
         if (mPlayer3.getName() != null) {
             mPlayer3EditText.setText(mPlayer3.getName());
         }
@@ -150,6 +171,7 @@ public class ScoreSheetFragment extends ListFragment {
         });
 
         mPlayer4EditText = (EditText) v.findViewById(R.id.P4_name);
+        mPlayer4EditText.setWidth(mPlayer4EditText.getWidth());
         if (mPlayer4.getName() != null) {
             mPlayer4EditText.setText(mPlayer4.getName());
         }
@@ -172,19 +194,20 @@ public class ScoreSheetFragment extends ListFragment {
 
         ListView listView = (ListView)v.findViewById(android.R.id.list);
 
-
-
-
-
-
+        // get the TextViews that will display the players' total scores
         mPlayer1Total = (TextView) v.findViewById(R.id.P1_total);
-        mPlayer1Total.setText(Integer.toString(mPlayer1.getTotalScore()));
         mPlayer2Total = (TextView) v.findViewById(R.id.P2_total);
-        mPlayer2Total.setText(Integer.toString(mPlayer2.getTotalScore()));
         mPlayer3Total = (TextView) v.findViewById(R.id.P3_total);
-        mPlayer3Total.setText(Integer.toString(mPlayer3.getTotalScore()));
         mPlayer4Total = (TextView) v.findViewById(R.id.P4_total);
-        mPlayer4Total.setText(Integer.toString(mPlayer4.getTotalScore()));
+        // lock the sizes of these textViews so they don't redistribute extra space as scores are entered
+        mPlayer1Total.setWidth(mPlayer1Total.getWidth());
+        mPlayer2Total.setWidth(mPlayer2Total.getWidth());
+        mPlayer3Total.setWidth(mPlayer3Total.getWidth());
+        mPlayer4Total.setWidth(mPlayer4Total.getWidth());
+        // display updated totals for each player
+        updateTotalScores();
+
+
 
         return v;
     }
@@ -217,13 +240,42 @@ public class ScoreSheetFragment extends ListFragment {
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+
+        int round = (int) data.getSerializableExtra(NumericalScoreEntryFragment.EXTRA_ROUND);
+        int score = (int) data.getSerializableExtra(NumericalScoreEntryFragment.EXTRA_SCORE);
+        switch (requestCode) {
+            case REQUEST_PLAYER1_SCORE:
+                mPlayer1.changeRoundScore(round, score);
+                break;
+            case REQUEST_PLAYER2_SCORE:
+                mPlayer2.changeRoundScore(round, score);
+                break;
+            case REQUEST_PLAYER3_SCORE:
+                mPlayer3.changeRoundScore(round, score);
+                break;
+            case REQUEST_PLAYER4_SCORE:
+                mPlayer4.changeRoundScore(round, score);
+                break;
+            default:
+        }
+
+        ScoresAdapter adapter = (ScoresAdapter) getListAdapter();
+        adapter.notifyDataSetChanged();
+        updateTotalScores();
+    }
+
     private class ScoresAdapter extends ArrayAdapter<ArrayList<Integer>> {
         public ScoresAdapter(ArrayList<ArrayList<Integer>> scores) {
             super(getActivity(), 0, scores);
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             // if we weren't given a View, inflate one
             if (convertView == null) {
                 convertView = getActivity().getLayoutInflater().inflate(R.layout.list_item_scores, null);
@@ -231,70 +283,62 @@ public class ScoreSheetFragment extends ListFragment {
 
             // Configure the View for this round - a score for each player
             TextView player1ScoreTV = (TextView) convertView.findViewById(R.id.P1_score);
+            player1ScoreTV.setWidth(player1ScoreTV.getWidth());
             player1ScoreTV.setText(Integer.toString(mPlayer1.getRoundScore(position)));
             player1ScoreTV.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Log.d(TAG, "clicked player 1's score");
+                    // create a Score Entry Dialog to accept Player1's score for this round
+                    displayScoreEntryDialog(REQUEST_PLAYER1_SCORE, mPlayer1.getName(), position);
+
                 }
             });
             TextView player2ScoreTV = (TextView) convertView.findViewById(R.id.P2_score);
+            player2ScoreTV.setWidth(player2ScoreTV.getWidth());
             player2ScoreTV.setText(Integer.toString(mPlayer2.getRoundScore(position)));
             player2ScoreTV.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Log.d(TAG, "clicked player 2's score");
+                    // create a Score Entry Dialog to accept Player1's score for this round
+                    displayScoreEntryDialog(REQUEST_PLAYER2_SCORE, mPlayer2.getName(), position);
+
                 }
             });
             TextView player3ScoreTV = (TextView) convertView.findViewById(R.id.P3_score);
+            player3ScoreTV.setWidth(player3ScoreTV.getWidth());
             player3ScoreTV.setText(Integer.toString(mPlayer3.getRoundScore(position)));
             player3ScoreTV.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Log.d(TAG, "clicked player 3's score");
+                    // create a Score Entry Dialog to accept Player1's score for this round
+                    displayScoreEntryDialog(REQUEST_PLAYER3_SCORE, mPlayer3.getName(), position);
                 }
             });
             TextView player4ScoreTV = (TextView) convertView.findViewById(R.id.P4_score);
+            player4ScoreTV.setWidth(player4ScoreTV.getWidth());
             player4ScoreTV.setText(Integer.toString(mPlayer4.getRoundScore(position)));
             player4ScoreTV.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Log.d(TAG, "clicked player 4's score");
+                    // create a Score Entry Dialog to accept Player1's score for this round
+                    displayScoreEntryDialog(REQUEST_PLAYER4_SCORE, mPlayer4.getName(), position);
                 }
             });
 
             return convertView;
         }
-    }
 
-/*
-    private class ScoresAdapter extends ArrayAdapter<Crime> {
-        public CrimeAdapter(ArrayList<Crime> crimes) {
-            super(getActivity(), 0, crimes);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            // If we weren't given a View, inflate one
-            if (convertView == null) {
-                convertView = getActivity().getLayoutInflater().inflate(R.layout.list_item_crime, null);
-            }
-
-            // Configure the view for this Crime
-            Crime c = getItem(position);
-
-            TextView titleTextView = (TextView) convertView.findViewById(R.id.crime_list_item_titleTextView);
-            titleTextView.setText(c.getTitle());
-
-            TextView dateTextView = (TextView) convertView.findViewById(R.id.crime_list_item_dateTextView);
-            dateTextView.setText(c.getDateString() + " - " + c.getTimeString());
-
-            CheckBox solvedCheckBox = (CheckBox) convertView.findViewById(R.id.crime_list_item_solvedCheckBox);
-            solvedCheckBox.setChecked(c.isSolved());
-
-            return convertView;
+        private void displayScoreEntryDialog(int requestCode, String playerName, int position) {
+            // determines the appropriate score entry method for the chosen game
+            // and displays a dialog
+            FragmentManager fm = getActivity().getSupportFragmentManager();
+            NumericalScoreEntryFragment dialog = NumericalScoreEntryFragment.newInstance(playerName, position);
+            dialog.setTargetFragment(ScoreSheetFragment.this, requestCode);
+            dialog.show(fm, DIALOG_SCORE);
         }
     }
-
-    */
 }

@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- app strings -->
     <string name="app_name">ScoreTracker</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    <!-- Game List strings -->
     <string name="add_game">Add New Game</string>
     <string name="list_instruction">Choose a game to begin scoring</string>
 
-    <string name="score_entry_title">Enter round score for </string>
+    <!-- Score Sheet strings -->
+    <string name="score_sheet_instruction">Select \"Add Next Round\" from the menu to add a new round of scores</string>
+    <string name="add_round">Add Next Round</string>
+
+    <!-- Score Entry strings -->
+    <string name="score_entry_title">Enter a score for </string>
 
 </resources>

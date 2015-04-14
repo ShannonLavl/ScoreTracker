@@ -14,22 +14,22 @@
 
         <EditText
             android:id="@+id/P1_name"
-            style="@style/ScoreSheetEntryStyle"
+            style="@style/ScoreSheetNameStyle"
             android:hint="Player 1" />
 
         <EditText
             android:id="@+id/P2_name"
-            style="@style/ScoreSheetEntryStyle"
+            style="@style/ScoreSheetNameStyle"
             android:hint="Player 2" />
 
         <EditText
             android:id="@+id/P3_name"
-            style="@style/ScoreSheetEntryStyle"
+            style="@style/ScoreSheetNameStyle"
             android:hint="Player 3" />
 
         <EditText
             android:id="@+id/P4_name"
-            style="@style/ScoreSheetEntryStyle"
+            style="@style/ScoreSheetNameStyle"
             android:hint="Player 4" />
 
     </LinearLayout>
@@ -39,8 +39,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/names_layout"
-        android:layout_above="@+id/totals_layout">
-    </ListView>
+        android:layout_above="@+id/totals_layout"/>
+
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/score_sheet_instruction"
+        android:layout_below="@+id/names_layout"
+        android:layout_above="@+id/totals_layout"
+        android:layout_margin="16dp"
+        android:gravity="center_vertical|center_horizontal" />
 
     <LinearLayout
         android:id="@+id/totals_layout"

@@ -5,11 +5,18 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="ScoreSheetEntryStyle">
+    <style name="ScoreSheetNameStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>
 
+    </style>
+
+    <style name="ScoreSheetEntryStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:padding">16dp</item>
     </style>
 </resources>
 
