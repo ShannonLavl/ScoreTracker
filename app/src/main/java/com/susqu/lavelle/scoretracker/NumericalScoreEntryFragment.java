@@ -4,10 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -16,16 +14,9 @@ import android.widget.EditText;
 /**
  * Created by Shannon on 4/7/2015.
  */
-public class NumericalScoreEntryFragment extends DialogFragment {
-    public static final String EXTRA_SCORE = "com.susqu.lavelle.scoretracker.score";
-    public static final String EXTRA_ROUND = "com.susqu.lavelle.scoretracker.round";
-    public static final String EXTRA_PLAYER = "com.susqu.lavelle.scoretracker.player";
+public class NumericalScoreEntryFragment extends ScoreEntryFragment {
 
-    private int mScore = 0;
-    private int mRound = 0;
-    private String mPlayerName;
-
-    public static NumericalScoreEntryFragment newInstance(String playerName, int round) {
+        public static NumericalScoreEntryFragment newInstance(String playerName, int round) {
         Bundle args = new Bundle();
 
         args.putSerializable(EXTRA_SCORE, 0);
@@ -36,18 +27,6 @@ public class NumericalScoreEntryFragment extends DialogFragment {
         fragment.setArguments(args);
 
         return fragment;
-    }
-
-    private void sendResult(int resultCode) {
-        if (getTargetFragment() == null) {
-            return;
-        }
-
-        Intent i = new Intent();
-        i.putExtra(EXTRA_SCORE, mScore);
-        i.putExtra(EXTRA_ROUND, mRound);
-
-        getTargetFragment().onActivityResult(getTargetRequestCode(), resultCode, i);
     }
 
     @NonNull
@@ -69,7 +48,23 @@ public class NumericalScoreEntryFragment extends DialogFragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mScore = Integer.parseInt(s.toString());
+                if (s.length() > 0) {
+                    // negative numbers
+                    if (s.charAt(0) == '-') {
+                        // only the - sign has been entered
+                        if (s.length() == 1) {
+                            mScore = -1;
+                        }
+                        // multiply the rest of the entry by -1
+                        else {
+                            mScore = -1*Integer.parseInt(s.subSequence(1, s.length()).toString());
+                        }
+                    }
+                    // positive numbers
+                    else {
+                        mScore = Integer.parseInt(s.toString());
+                    }
+                }
             }
 
             @Override

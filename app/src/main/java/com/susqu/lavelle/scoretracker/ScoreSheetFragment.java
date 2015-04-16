@@ -15,12 +15,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * Created by Shannon on 3/23/2015.
@@ -35,6 +37,8 @@ public class ScoreSheetFragment extends ListFragment {
     private static final int REQUEST_PLAYER4_SCORE = 3;
 
     public static final String DIALOG_SCORE = "score";
+
+    public UUID mGameID;
 
     public int mNumPlayers = 4;
     public Player mPlayer1;
@@ -81,14 +85,13 @@ public class ScoreSheetFragment extends ListFragment {
         mPlayer3 = new Player("Jon");
         mPlayer4 = new Player("Phil");
 
-
         mScores = new ArrayList<ArrayList<Integer>>();
 
         ScoresAdapter adapter = new ScoresAdapter(mScores);
         setListAdapter(adapter);
 
-
         // Get the information for this game
+        mGameID = (UUID) getActivity().getIntent().getSerializableExtra(EXTRA_GAME_ID);
 
         setHasOptionsMenu(true);
     }
@@ -96,6 +99,7 @@ public class ScoreSheetFragment extends ListFragment {
     @Override
     public void onResume() {
         super.onResume();
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     @Override
@@ -335,8 +339,33 @@ public class ScoreSheetFragment extends ListFragment {
         private void displayScoreEntryDialog(int requestCode, String playerName, int position) {
             // determines the appropriate score entry method for the chosen game
             // and displays a dialog
+
+            GamesList gamesList = GamesList.get(getContext());
+            ScoreEntryFragment dialog;
+
+            switch(gamesList.getGame(mGameID).getName()) {
+                case "UNO":
+                    dialog = UNOScoreEntryFragment.newInstance(playerName, position);
+                    break;
+                case "Rummy 500":
+                    dialog = RummyScoreEntryFragment.newInstance(playerName, position);
+                    break;
+                case "Crazy Eights":
+                    dialog = CrazyEightsScoreEntryFragment.newInstance(playerName, position);
+                    break;
+                case "Creights":
+                    dialog = CreightsScoreEntryFragment.newInstance(playerName, position);
+                    break;
+                case "Hearts":
+                    dialog = HeartsScoreEntryFragment.newInstance(playerName, position);
+                    break;
+                case "Basic Score Sheet":
+                default:
+                    dialog = NumericalScoreEntryFragment.newInstance(playerName, position);
+                    break;
+            }
+
             FragmentManager fm = getActivity().getSupportFragmentManager();
-            NumericalScoreEntryFragment dialog = NumericalScoreEntryFragment.newInstance(playerName, position);
             dialog.setTargetFragment(ScoreSheetFragment.this, requestCode);
             dialog.show(fm, DIALOG_SCORE);
         }

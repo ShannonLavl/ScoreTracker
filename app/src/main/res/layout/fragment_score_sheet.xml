@@ -60,23 +60,19 @@
 
         <TextView
             android:id="@+id/P1_total"
-            style="@style/ScoreSheetEntryStyle"
-            android:text="0" />
+            style="@style/ScoreSheetEntryStyle"/>
 
         <TextView
             android:id="@+id/P2_total"
-            style="@style/ScoreSheetEntryStyle"
-            android:text="0" />
+            style="@style/ScoreSheetEntryStyle"/>
 
         <TextView
             android:id="@+id/P3_total"
-            style="@style/ScoreSheetEntryStyle"
-            android:text="0" />
+            style="@style/ScoreSheetEntryStyle"/>
 
         <TextView
             android:id="@+id/P4_total"
-            style="@style/ScoreSheetEntryStyle"
-            android:text="0" />
+            style="@style/ScoreSheetEntryStyle"/>
 
     </LinearLayout>
 

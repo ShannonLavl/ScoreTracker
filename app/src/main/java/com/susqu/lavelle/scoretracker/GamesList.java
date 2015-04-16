@@ -11,7 +11,7 @@ import java.util.UUID;
 public class GamesList {
     public static final String TAG = "GamesList";
 
-    private static GamesList sGamesList;
+    public static GamesList sGamesList;
     private Context mAppContext;
     private ArrayList<Game> mGames;
 
@@ -63,5 +63,9 @@ public class GamesList {
         Game Creights = new Game();
         Creights.setName("Creights");
         mGames.add(Creights);
+
+        Game Hearts = new Game();
+        Hearts.setName("Hearts");
+        mGames.add(Hearts);
     }
 }
