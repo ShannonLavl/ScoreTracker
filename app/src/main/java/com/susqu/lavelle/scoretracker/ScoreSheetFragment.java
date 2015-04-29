@@ -39,6 +39,7 @@ public class ScoreSheetFragment extends ListFragment {
     public static final String DIALOG_SCORE = "score";
 
     public UUID mGameID;
+    public GamesList mGamesList;
 
     public int mNumPlayers = 4;
     public Player mPlayer1;
@@ -92,6 +93,9 @@ public class ScoreSheetFragment extends ListFragment {
 
         // Get the information for this game
         mGameID = (UUID) getActivity().getIntent().getSerializableExtra(EXTRA_GAME_ID);
+        mGamesList = GamesList.get(getActivity());
+
+        getActivity().setTitle(mGamesList.getGame(mGameID).getName());
 
         setHasOptionsMenu(true);
     }
@@ -340,10 +344,9 @@ public class ScoreSheetFragment extends ListFragment {
             // determines the appropriate score entry method for the chosen game
             // and displays a dialog
 
-            GamesList gamesList = GamesList.get(getContext());
             ScoreEntryFragment dialog;
 
-            switch(gamesList.getGame(mGameID).getName()) {
+            switch(mGamesList.getGame(mGameID).getName()) {
                 case "UNO":
                     dialog = UNOScoreEntryFragment.newInstance(playerName, position);
                     break;

@@ -27,4 +27,9 @@ public class RummyScoreEntryFragment extends ScoreEntryFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         return super.onCreateDialog(savedInstanceState);
     }
+
+    @Override
+    public void computeScore() {
+
+    }
 }

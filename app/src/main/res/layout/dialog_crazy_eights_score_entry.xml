@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp">
+
+        <TextView
+            android:id="@+id/text_ALabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="A's: "/>
+
+        <TextView
+            android:id="@+id/text_numAs"
+            style="@style/UNOScoreEntryStyle"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/text_2Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2s: "/>
+
+        <TextView
+            android:id="@+id/text_num2s"
+            style="@style/UNOScoreEntryStyle"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/text_3Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3s: "/>
+
+        <TextView
+            android:id="@+id/text_num3s"
+            style="@style/UNOScoreEntryStyle"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp">
+
+        <TextView
+            android:id="@+id/text_4Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4s: "/>
+
+        <TextView
+            android:id="@+id/text_num4s"
+            style="@style/UNOScoreEntryStyle"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/text_5Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5s: "/>
+
+        <TextView
+            android:id="@+id/text_num5s"
+            style="@style/UNOScoreEntryStyle"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/text_6Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="6s: "/>
+
+        <TextView
+            android:id="@+id/text_num6s"
+            style="@style/UNOScoreEntryStyle"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp">
+
+        <TextView
+            android:id="@+id/text_7Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="7s: "/>
+
+        <TextView
+            android:id="@+id/text_num7s"
+            style="@style/UNOScoreEntryStyle"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/text_8Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8s: "/>
+
+        <TextView
+            android:id="@+id/text_num8s"
+            style="@style/UNOScoreEntryStyle"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/text_9Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="9s: "/>
+
+        <TextView
+            android:id="@+id/text_num9s"
+            style="@style/UNOScoreEntryStyle"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp">
+
+        <TextView
+            android:id="@+id/text_10Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10's: "/>
+
+        <TextView
+            android:id="@+id/text_num10s"
+            style="@style/UNOScoreEntryStyle"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/text_JQKLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="J/Q/K's: "/>
+
+        <TextView
+            android:id="@+id/text_numJQKs"
+            style="@style/UNOScoreEntryStyle"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_clear"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="Clear"
+        android:layout_gravity="center_horizontal"/>
+
+</LinearLayout>

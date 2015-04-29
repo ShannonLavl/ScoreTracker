@@ -75,7 +75,7 @@ public class NumericalScoreEntryFragment extends ScoreEntryFragment {
 
         return new AlertDialog.Builder(getActivity())
                 .setView(v)
-                .setTitle("Enter round score for " + mPlayerName + " for round " + (mRound + 1))
+                .setTitle("Enter a score for " + mPlayerName + " for round " + (mRound + 1))
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -83,5 +83,9 @@ public class NumericalScoreEntryFragment extends ScoreEntryFragment {
                     }
                 })
                 .create();
+    }
+
+    @Override
+    public void computeScore() {
     }
 }
