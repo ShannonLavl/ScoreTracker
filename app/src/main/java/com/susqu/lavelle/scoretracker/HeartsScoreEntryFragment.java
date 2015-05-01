@@ -15,8 +15,7 @@ import android.widget.TextView;
  * Created by Shannon on 4/16/2015.
  */
 public class HeartsScoreEntryFragment extends ScoreEntryFragment {
-    Boolean gets26Points = false;
-    Boolean gets13Points = false;
+
     int mNumHearts = 0;
 
     TextView mNumHeartsView;

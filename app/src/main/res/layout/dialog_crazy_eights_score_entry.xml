@@ -25,7 +25,7 @@
             android:id="@+id/text_2Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2s: "/>
+            android:text="2's: "/>
 
         <TextView
             android:id="@+id/text_num2s"
@@ -36,7 +36,7 @@
             android:id="@+id/text_3Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3s: "/>
+            android:text="3's: "/>
 
         <TextView
             android:id="@+id/text_num3s"
@@ -55,7 +55,7 @@
             android:id="@+id/text_4Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="4s: "/>
+            android:text="4's: "/>
 
         <TextView
             android:id="@+id/text_num4s"
@@ -66,7 +66,7 @@
             android:id="@+id/text_5Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="5s: "/>
+            android:text="5's: "/>
 
         <TextView
             android:id="@+id/text_num5s"
@@ -77,7 +77,7 @@
             android:id="@+id/text_6Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="6s: "/>
+            android:text="6's: "/>
 
         <TextView
             android:id="@+id/text_num6s"
@@ -96,7 +96,7 @@
             android:id="@+id/text_7Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="7s: "/>
+            android:text="7's: "/>
 
         <TextView
             android:id="@+id/text_num7s"
@@ -107,7 +107,7 @@
             android:id="@+id/text_8Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="8s: "/>
+            android:text="8's: "/>
 
         <TextView
             android:id="@+id/text_num8s"
@@ -118,7 +118,7 @@
             android:id="@+id/text_9Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="9s: "/>
+            android:text="9's: "/>
 
         <TextView
             android:id="@+id/text_num9s"

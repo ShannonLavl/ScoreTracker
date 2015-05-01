@@ -48,14 +48,6 @@ public class GamesList {
         basicScoreSheet.setName("Basic Score Sheet");
         mGames.add(basicScoreSheet);
 
-        Game UNO = new Game();
-        UNO.setName("UNO");
-        mGames.add(UNO);
-
-        Game Rummy500 = new Game();
-        Rummy500.setName("Rummy 500");
-        mGames.add(Rummy500);
-
         Game CrazyEights = new Game();
         CrazyEights.setName("Crazy Eights");
         mGames.add(CrazyEights);
@@ -67,5 +59,19 @@ public class GamesList {
         Game Hearts = new Game();
         Hearts.setName("Hearts");
         mGames.add(Hearts);
+
+        Game Phase10 = new Game();
+        Phase10.setName("Phase 10");
+        mGames.add(Phase10);
+
+        Game Rummy500 = new Game();
+        Rummy500.setName("Rummy 500");
+        mGames.add(Rummy500);
+
+        Game UNO = new Game();
+        UNO.setName("UNO");
+        mGames.add(UNO);
+
+
     }
 }

@@ -154,14 +154,6 @@ public class UNOScoreEntryFragment extends ScoreEntryFragment {
                 updateTextView(1, true);
             }
         });
-
-        Button clear1Button = (Button) v.findViewById(R.id.button_clear_1s);
-        clear1Button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateTextView(1, false);
-            }
-        });
         //------------------------------------------------------------------------
         mNumTwosView = (TextView) v.findViewById(R.id.text_num2s);
         updateTextView(2, false);
@@ -169,14 +161,6 @@ public class UNOScoreEntryFragment extends ScoreEntryFragment {
             @Override
             public void onClick(View v) {
                 updateTextView(2, true);
-            }
-        });
-
-        Button clear2Button = (Button) v.findViewById(R.id.button_clear_2s);
-        clear2Button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateTextView(2, false);
             }
         });
         //------------------------------------------------------------------------
@@ -188,14 +172,6 @@ public class UNOScoreEntryFragment extends ScoreEntryFragment {
                 updateTextView(3, true);
             }
         });
-
-        Button clear3Button = (Button) v.findViewById(R.id.button_clear_3s);
-        clear3Button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateTextView(3, false);
-            }
-        });
         //------------------------------------------------------------------------
         mNumFoursView = (TextView) v.findViewById(R.id.text_num4s);
         updateTextView(4, false);
@@ -203,14 +179,6 @@ public class UNOScoreEntryFragment extends ScoreEntryFragment {
             @Override
             public void onClick(View v) {
                 updateTextView(4, true);
-            }
-        });
-
-        Button clear4Button = (Button) v.findViewById(R.id.button_clear_4s);
-        clear4Button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateTextView(4, false);
             }
         });
         //------------------------------------------------------------------------
@@ -222,14 +190,6 @@ public class UNOScoreEntryFragment extends ScoreEntryFragment {
                 updateTextView(5, true);
             }
         });
-
-        Button clear5Button = (Button) v.findViewById(R.id.button_clear_5s);
-        clear5Button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateTextView(5, false);
-            }
-        });
         //------------------------------------------------------------------------
         mNumSixesView = (TextView) v.findViewById(R.id.text_num6s);
         updateTextView(6, false);
@@ -237,14 +197,6 @@ public class UNOScoreEntryFragment extends ScoreEntryFragment {
             @Override
             public void onClick(View v) {
                 updateTextView(6, true);
-            }
-        });
-
-        Button clear6Button = (Button) v.findViewById(R.id.button_clear_6s);
-        clear6Button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateTextView(6, false);
             }
         });
         //------------------------------------------------------------------------
@@ -256,14 +208,6 @@ public class UNOScoreEntryFragment extends ScoreEntryFragment {
                 updateTextView(7, true);
             }
         });
-
-        Button clear7Button = (Button) v.findViewById(R.id.button_clear_7s);
-        clear7Button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateTextView(7, false);
-            }
-        });
         //------------------------------------------------------------------------
         mNumEightsView = (TextView) v.findViewById(R.id.text_num8s);
         updateTextView(8, false);
@@ -271,14 +215,6 @@ public class UNOScoreEntryFragment extends ScoreEntryFragment {
             @Override
             public void onClick(View v) {
                 updateTextView(8, true);
-            }
-        });
-
-        Button clear8Button = (Button) v.findViewById(R.id.button_clear_8s);
-        clear8Button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateTextView(8, false);
             }
         });
         //------------------------------------------------------------------------
@@ -290,14 +226,6 @@ public class UNOScoreEntryFragment extends ScoreEntryFragment {
                 updateTextView(9, true);
             }
         });
-
-        Button clear9Button = (Button) v.findViewById(R.id.button_clear_9s);
-        clear9Button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateTextView(9, false);
-            }
-        });
         //------------------------------------------------------------------------
         mNumTwentiesView = (TextView) v.findViewById(R.id.text_num20s);
         updateTextView(20, false);
@@ -305,14 +233,6 @@ public class UNOScoreEntryFragment extends ScoreEntryFragment {
             @Override
             public void onClick(View v) {
                 updateTextView(20, true);
-            }
-        });
-
-        Button clear20Button = (Button) v.findViewById(R.id.button_clear_20s);
-        clear20Button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateTextView(20, false);
             }
         });
         //------------------------------------------------------------------------
@@ -324,15 +244,27 @@ public class UNOScoreEntryFragment extends ScoreEntryFragment {
                 updateTextView(50, true);
             }
         });
+        //------------------------------------------------------------------------
 
-        Button clear50Button = (Button) v.findViewById(R.id.button_clear_50s);
-        clear50Button.setOnClickListener(new View.OnClickListener() {
+        Button clearButton = (Button) v.findViewById(R.id.button_clear);
+        clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                updateTextView(1, false);
+                updateTextView(2, false);
+                updateTextView(3, false);
+                updateTextView(4, false);
+                updateTextView(5, false);
+                updateTextView(6, false);
+                updateTextView(7, false);
+                updateTextView(8, false);
+                updateTextView(9, false);
+                updateTextView(20, false);
                 updateTextView(50, false);
             }
         });
-        //------------------------------------------------------------------------
+
+
 
         return new AlertDialog.Builder(getActivity())
                 .setView(v)

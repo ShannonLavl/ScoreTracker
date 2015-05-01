@@ -60,16 +60,6 @@ public class ScoreSheetFragment extends ListFragment {
     public ArrayList<ArrayList<Integer>> mScores;
 
 
-/*    public static ScoreSheetFragment newInstance(UUID gameId) {
-        Bundle args = new Bundle();
-        //args.putSerializable(EXTRA_CRIME_ID, crimeId);
-
-        ScoreSheetFragment fragment = new ScoreSheetFragment();
-        fragment.setArguments(args);
-
-        return fragment;
-    }  */
-
     private void updateTotalScores() {
         mPlayer1Total.setText(Integer.toString(mPlayer1.getTotalScore()));
         mPlayer2Total.setText(Integer.toString(mPlayer2.getTotalScore()));
@@ -351,7 +341,7 @@ public class ScoreSheetFragment extends ListFragment {
                     dialog = UNOScoreEntryFragment.newInstance(playerName, position);
                     break;
                 case "Rummy 500":
-                    dialog = RummyScoreEntryFragment.newInstance(playerName, position);
+                    dialog = NumericalScoreEntryFragment.newInstance(playerName, position);
                     break;
                 case "Crazy Eights":
                     dialog = CrazyEightsScoreEntryFragment.newInstance(playerName, position);
@@ -361,6 +351,9 @@ public class ScoreSheetFragment extends ListFragment {
                     break;
                 case "Hearts":
                     dialog = HeartsScoreEntryFragment.newInstance(playerName, position);
+                    break;
+                case "Phase 10":
+                    dialog = Phase10ScoreEntryFragment.newInstance(playerName, position);
                     break;
                 case "Basic Score Sheet":
                 default:

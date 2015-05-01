@@ -152,6 +152,7 @@ public class CreightsScoreEntryFragment extends ScoreEntryFragment {
 
         View v = getActivity().getLayoutInflater().inflate(R.layout.dialog_creights_score_entry, null);
 
+
         // wire up buttons and editText
         mNumAcesView = (TextView) v.findViewById(R.id.text_numAs);
         updateTextView(1, false);
